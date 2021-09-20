@@ -1,0 +1,32 @@
+[user]
+	email = donald@witt3rd.com
+	name = witt3rd
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	ui = true
+[core]
+	excludesfile = /Users/donald/.gitignore
+	editor = emacs
+[push]
+	default = simple
+[alias]
+	s  = status -uall
+	ac = !git add . && git commit -m
+[pull]
+	rebase = false
+[merge]
+	conflictStyle = diff3
+[magit]
+	hideCampaign = true
+[alias]
+    tree = log --graph --decorate --pretty=oneline --abbrev-commit --all
+[init]
+	defaultBranch = main
+
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process

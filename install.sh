@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+
+print_linking() {
+    echo $'\e[34m[\e[33m⇠\e[34m]\e[0m' "$@"
+}
+
+print_already_linked() {
+    echo $'\e[34m[\e[32m✓\e[34m]\e[0m' "$@"
+}
+
+print_problem() {
+    echo $'\e[34m[\e[31m!\e[34m]\e[0m' "$@"
+}
+
+print_recursing() {
+    echo $'  \e[34m[\e[33m⇣\e[34m]\e[0m' "$@"
+}
+
+dotfiles() {
+    find `dotdir` -maxdepth 1 -name '.*' -not -name '.git' -printf '%f\n'
+}
+
+dotdir() {
+    cd `dirname "${BASH_SOURCE[0]}"` && echo "`pwd`/$1"
+}
+
+create_symlink_if_possible() {
+    local dotfile=$1
+
+    if [[ -e "$HOME/$dotfile" ]]; then
+        print_problem "$dotfile : can't create symlink, regular file is in the way."
+    else
+        print_linking "$dotfile : creating symlink"
+        ln -s "`dotdir $dotfile`" "$HOME/$dotfile"
+    fi
+}
+
+check_existing_symlink() {
+    local dotfile=$1
+    local target=$(readlink -f $HOME/$dotfile)
+
+    if [[ "$target" != "`dotdir $dotfile`" ]]; then
+        print_problem "$dotfile : symlink points elsewhere -> $target"
+    else
+        print_already_linked "$dotfile"
+    fi
+}
+
+handle_dotfile() {
+    local dotfile=$1
+
+    if [[ -L "$HOME/$dotfile" ]]; then
+        check_existing_symlink $dotfile
+    else
+        create_symlink_if_possible $dotfile
+    fi
+}
+
+handle_directory() {
+    local dir=$1;
+    print_recursing "recursing into " $dir
+    mkdir -p "$HOME/$dir"
+    for file in $(find `dotdir`/$dir -maxdepth 1 -not -wholename `dotdir`/$dir -printf '%f\n'); do
+        handle "${dir}/${file}"
+    done
+}
+
+handle() {
+    local dotfile=$1
+
+    if [[ -f "${dotfile}" ]]; then
+        handle_dotfile "${dotfile}"
+    elif [[ -d "${dotfile}" ]]; then
+        handle_directory "${dotfile}"
+    fi
+}
+
+for dotfile in $(dotfiles) ; do
+    handle "${dotfile}"
+done
