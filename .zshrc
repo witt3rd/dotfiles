@@ -108,9 +108,10 @@ export ARCHFLAGS="-arch x86_64"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ci="code-insiders"
-alias lg="lazygit"
-alias e="emacsclient -c -n --alternate-editor=''"   # emacs gui
-alias et="emacsclient -c -nw --alternate-editor=''" # emacs terminal
+# alias e="emacsclient -c -n --alternate-editor=''"   # emacs gui
+# alias et="emacsclient -c -nw --alternate-editor=''" # emacs terminal
+e () { emacs "$@" & }
+et () { emacs -nw "$@" & }
 
 # >>> NVM
 export NVM_DIR="$HOME/.nvm"
