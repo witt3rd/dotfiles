@@ -68,11 +68,11 @@ handle_directory() {
 handle() {
     local dotfile=$1
 
-    if [[ -f "${dotfile}" ]]; then
+#    if [[ -f "${dotfile}" ]]; then
         handle_dotfile "${dotfile}"
-    elif [[ -d "${dotfile}" ]]; then
-        handle_directory "${dotfile}"
-    fi
+#    elif [[ -d "${dotfile}" ]]; then
+#        handle_directory "${dotfile}"
+#    fi
 }
 
 for dotfile in $(dotfiles) ; do
