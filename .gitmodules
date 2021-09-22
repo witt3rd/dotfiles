@@ -7,3 +7,6 @@
 [submodule "emacs/doom-emacs"]
 	path = emacs/doom-emacs
 	url = git@github.com:hlissner/doom-emacs.git
+[submodule "zsh/themes/dracula"]
+	path = zsh/themes/dracula
+	url = git@github.com:dracula/zsh.git
