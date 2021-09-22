@@ -110,7 +110,7 @@ export ARCHFLAGS="-arch x86_64"
 alias ci="code-insiders"
 # alias e="emacsclient -c -n --alternate-editor=''"   # emacs gui
 # alias et="emacsclient -c -nw --alternate-editor=''" # emacs terminal
-e () { emacs "$@" & }
+e () { nohup emacs "$@" >& /dev/null &! }
 et () { emacs -nw "$@" }
 
 # >>> NVM
