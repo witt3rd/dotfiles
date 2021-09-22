@@ -111,7 +111,7 @@ alias ci="code-insiders"
 # alias e="emacsclient -c -n --alternate-editor=''"   # emacs gui
 # alias et="emacsclient -c -nw --alternate-editor=''" # emacs terminal
 e () { emacs "$@" & }
-et () { emacs -nw "$@" & }
+et () { emacs -nw "$@" }
 
 # >>> NVM
 export NVM_DIR="$HOME/.nvm"
