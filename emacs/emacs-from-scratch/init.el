@@ -36,9 +36,21 @@
 ;; Typed text replaces the selection
 (delete-selection-mode t)
 
-;; Line and column numbers
-(global-display-line-numbers-mode)
+;; Column numbers in modeline
 (column-number-mode)
+
+;; Line numbers in buffers
+;; https://stackoverflow.com/questions/64730866/disable-line-numbers-but-allow-them-in-prog-mode-and-text-mode
+;; modes to enable
+(dolist (mode '(text-mode-hook
+                prog-mode-hook
+                conf-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 1))))
+;; modes to disable
+(dolist (mode '(org-mode-hook
+                term-mode-hook
+                eshell-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 ;; Automatically reload files changed on disk
 (global-auto-revert-mode 1)
