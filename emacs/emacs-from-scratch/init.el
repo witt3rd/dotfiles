@@ -125,9 +125,14 @@
   (setq command-log-mode-auto-show t)
   (global-command-log-mode))
 
+;; Better mode line
 (use-package doom-modeline
   :ensure t
   :hook (after-init . doom-modeline-mode))
+
+;; Match delimiters in programming modes
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
 
 ;; -- Vertico --
 ;; Enable vertico
@@ -136,10 +141,10 @@
   (vertico-mode)
 
   ;; Grow and shrink the Vertico minibuffer
-  ;; (setq vertico-resize t)
+  (setq vertico-resize t)
 
   ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
-  ;; (setq vertico-cycle t)
+  (setq vertico-cycle t)
   )
 
 ;; Use the `orderless' completion style. Additionally enable
@@ -152,6 +157,7 @@
   (setq completion-styles '(orderless)
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))))
+
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
