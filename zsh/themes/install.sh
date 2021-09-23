@@ -1,1 +1,1 @@
-ln -s /home/donald/themes/dracula/dracula.zsh-theme /home/donald/.oh-my-zsh/themes/dracula.zsh-theme
+ln -s $PWD/dracula/dracula.zsh-theme $HOME/.oh-my-zsh/themes/dracula.zsh-theme
