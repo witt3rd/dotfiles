@@ -137,3 +137,5 @@ export EMACSDIR="$HOME/doom-emacs"
 export DOOMDIR="$HOME/.doom.d"
 export DOOMLOCALDIR="$HOME/.doom.d.local"
 # <<< doom emacs
+
+eval "$(pyenv init -)"
