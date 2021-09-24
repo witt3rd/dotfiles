@@ -1,3 +1,25 @@
+;;; package --- Summary
+;;;
+;;; Commentary:
+;;;
+;; -- Startup Performance --
+
+;; -*- lexical-binding: t; -*-
+
+;;; Code:
+;;;
+;; The default is 800 kilobytes.  Measured in bytes.
+(setq gc-cons-threshold (* 50 1000 1000))
+
+;; Profile emacs startup
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (message "*** Emacs loaded in %s with %d garbage collections."
+                     (format "%.2f seconds"
+                             (float-time
+                              (time-subtract after-init-time before-init-time)))
+                     gcs-done)))
+
 ;; -- Basic Settings --
 
 (setq
@@ -64,8 +86,8 @@
 
 ;; ---  Emacs Customize  ---
 
-;; Confuse customize by randomizing its output file
-(setq custom-file (make-temp-file ""))
+;; Ignore customize
+(setq custom-file null-device)
 
 ;; Assume all themes are safe
 (setq custom-safe-themes t)
@@ -80,38 +102,31 @@
 (prefer-coding-system 'utf-8)
 (setq default-process-coding-system '(utf-8-unix . utf-8-unix))
 
-;; -- Appearance --
-
-; Font
-(set-face-attribute 'default nil :font "FiraCode Nerd Font" :height 120)
-
-; Basic theme
-(load-theme 'wombat)
-
 ;; -- Package Management --
 
-; Initialize package sources
+;; Initialize package sources
 (require 'package)
 
-; Where to get packages from
+;; Where to get packages from
 (setq package-archives `(("melpa" . "https://melpa.org/packages/")
 			 ("melpa-stable" . "https://stable.melpa.org/packages/")
 			 ("org" . "https://orgmode.org/elpa/")
 			 ("elpa" . "https://elpa.gnu.org/packages/")))
 
-; Make all of the packages available for use
+;; Make all of the packages available for use
 (package-initialize)
 
 (unless package-archive-contents
   (package-refresh-contents))
 
-; Ensure the use-package package is installed
+;; Ensure the use-package package is installed
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 
-; Load the use-package package
+;; Load the use-package package
 (require 'use-package)
 (setq use-package-always-ensure t)
+(setq use-package-verbose t)
 
 ;; -- Packages --
 
@@ -125,18 +140,39 @@
   (setq command-log-mode-auto-show t)
   (global-command-log-mode))
 
+;; -- Appearance --
+
+;; Emacs should maximize
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+;; Font
+(set-face-attribute 'default nil :font "FiraCode Nerd Font" :height 120)
+
+;; Icons
+(use-package all-the-icons
+  :if (display-graphic-p)
+  :commands all-the-icons-install-fonts
+  :init
+  (unless (find-font (font-spec :name "all-the-icons"))
+    (all-the-icons-install-fonts t)))
+
+(use-package all-the-icons-dired
+  :if (display-graphic-p)
+  :hook (dired-mode . all-the-icons-dired-mode))
+
 ;; Better mode line
 (use-package doom-modeline
   :ensure t
   :hook (after-init . doom-modeline-mode))
 
+;; DOOM
 (use-package doom-themes
   :ensure t
   :config
   ;; Global settings (defaults)
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-dracula t)
+  (load-theme 'doom-outrun-electric t)
 
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
@@ -148,10 +184,17 @@
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
+;;
+(use-package dimmer
+  :custom (dimmer-fraction 0.5)
+  :config (dimmer-mode))
 
 ;; Match delimiters in programming modes
+(show-paren-mode 1)
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
+
+(use-package highlight-indent-guides)
 
 ;; -- Vertico --
 ;; Enable vertico
@@ -410,3 +453,7 @@
   :diminish which-key-mode
   :config
   (setq which-key-idle-delay 0.3))
+
+(provide 'init)
+
+;;; init.el ends here
