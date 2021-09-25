@@ -28,6 +28,7 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-outrun-electric)
+(setq fancy-splash-image "~/.doom.d/doom.png")
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -36,7 +37,6 @@
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
-
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -55,7 +55,30 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+;; ignore emacs "customize"
+(setq custom-file null-device)
+
 (setq
  projectile-project-search-path '(("~/src/witt3rd/" . 5) "~/org" ("~/dotfiles" . 0))
  projectile-auto-discover 1
  )
+
+(use-package! org-super-agenda
+  :after org-agenda
+  :init
+  (setq org-super-agenda-groups '((:name "Today"
+                                   :time-grid t
+                                   :scheduled today)
+                                  (:name "Due Today"
+                                   :deadline today)
+                                  (:name "Important"
+                                   :priority "A")
+                                  (:name "Overdue"
+                                   :deadline past)
+                                  (:name "Due soon"
+                                   :deadline future)
+                                  (:name "Big Outcomes"
+                                   :tag "bo")))
+  :config
+  (org-super-agenda-mode)
+  )
