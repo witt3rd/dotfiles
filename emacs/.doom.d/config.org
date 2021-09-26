@@ -2,6 +2,19 @@
 
 This is an ongoing evolution of my original Emacs configuration files, inspired by a bunch of resources I've found online.
 
+* Table of Contents
+ :TOC:
+- [[#personal-info][Personal Info]]
+- [[#appearance][Appearance]]
+  - [[#font][Font]]
+  - [[#theme][Theme]]
+- [[#line-numbers][Line Numbers]]
+- [[#emacs-customize][Emacs Customize]]
+- [[#projectile][Projectile]]
+- [[#org-mode][Org mode]]
+- [[#lsp][LSP]]
+- [[#cmake-ide][CMake IDE]]
+
 * Personal Info
 
 Some functionality uses this to identify you, e.g. GPG configuration, email clients, file templates and snippets.
