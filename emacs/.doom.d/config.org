@@ -3,6 +3,7 @@
 This is an ongoing evolution of my original Emacs configuration files, inspired by a bunch of resources I've found online.
 
 * Personal Info
+
 Some functionality uses this to identify you, e.g. GPG configuration, email clients, file templates and snippets.
 
 #+begin_src emacs-lisp :tangle yes
@@ -15,6 +16,8 @@ Some functionality uses this to identify you, e.g. GPG configuration, email clie
 * Appearance
 
 This section affects the themes, fonts, and other visual elements.
+
+** Font
 
 #+begin_src emacs-lisp :tangle yes
 
@@ -33,15 +36,30 @@ This section affects the themes, fonts, and other visual elements.
  doom-variable-pitch-font (font-spec :family "FiraCode Nerd Font" :size 16)
  doom-big-font (font-spec :family "FiraCode Nerd Font" :size 36 :weight 'bold))
 
+#+end_src
+
+** Theme
+
+#+begin_src emacs-lisp :tangle yes
+
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-outrun-electric)
 (setq fancy-splash-image "~/.doom.d/doom.png")
+#+end_src
 
-;; This determines the style of line numbers in effect. If set to `nil', line
+* Line Numbers
+
+#+begin_src emacs-lisp :tangle yes
+
+; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
+
+#+end_src
+
+#+begin_src emacs-lisp :tangle yes
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -60,23 +78,46 @@ This section affects the themes, fonts, and other visual elements.
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;; ignore emacs "customize"
+#+end_src
+
+* Emacs Customize
+
+Ignore emacs "customize" by redirecting the file to /dev/null
+
+#+begin_src emacs-lisp :tangle yes
+
 (setq custom-file null-device)
+
+#+end_src
+
+* Projectile
+
+Set project search paths and settings
+
+#+begin_src emacs-lisp :tangle yes
 
 (setq
  projectile-project-search-path '(("~/src/witt3rd/" . 5) "~/org" ("~/dotfiles" . 0))
  projectile-auto-discover 1
  )
 
-;;
-;; -- Org mode --
-;;
+#+end_src
 
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
+* Org mode
+
+Set the root directory.  It must be set before org loads!
+
+#+begin_src emacs-lisp :tangle yes
+
 (setq
  org-directory "~/org/"
  )
+
+#+end_src
+
+Add [[][org-super-agenda]] for nicer agenda views
+
+#+begin_src emacs-lisp :tangle yes
 
 (use-package! org-super-agenda
   :after org-agenda
@@ -98,15 +139,11 @@ This section affects the themes, fonts, and other visual elements.
   (org-super-agenda-mode)
   )
 
-;;
-;;
-;;
+#+end_src
 
+* LSP
 
-
-;;
-;; -- LSP --
-;;
+#+begin_src emacs-lisp :tangle yes
 
 (setq lsp-clients-clangd-args '("-j=3"
                                 "--background-index"
@@ -116,11 +153,20 @@ This section affects the themes, fonts, and other visual elements.
                                 "--header-insertion-decorators=0"))
 (after! lsp-clangd (set-lsp-priority! 'clangd 2))
 
-;;
-(require 'rtags) ;; optional, must have rtags installed
+#+end_src
 
-;; -- CMake IDE --
-;;
+[[][RTags]]
+
+#+begin_src emacs-lisp :tangle yes
+
+(require 'rtags)
+
+#+end_src
+
+* CMake IDE
+
+#+begin_src emacs-lisp :tangle yes
+
 (after! projectile
   (defun my/cmake-ide-find-project ()
     "Finds the directory of the project for cmake-ide."
