@@ -1,14 +1,22 @@
+#+TITLE: Doom Emacs Configuration
+
+This is an ongoing evolution of my original Emacs configuration files, inspired by a bunch of resources I've found online.
+
+* Personal Info
+Some functionality uses this to identify you, e.g. GPG configuration, email clients, file templates and snippets.
+
 #+begin_src emacs-lisp :tangle yes
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-;; Place your private configuration here! Remember, you do not need to run 'doom
-;; sync' after modifying this file!
-
-
-;; Some functionality uses this to identify you, e.g. GPG configuration, email
-;; clients, file templates and snippets.
 (setq user-full-name "Donald Thompson"
       user-mail-address "donald@witt3rd.com")
+#+end_src
+
+* Appearance
+
+This section affects the themes, fonts, and other visual elements.
+
+#+begin_src emacs-lisp :tangle yes
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
