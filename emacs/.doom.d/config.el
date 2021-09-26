@@ -88,3 +88,45 @@
   :config
   (org-super-agenda-mode)
   )
+
+;;
+;;
+;;
+
+
+
+;;
+;; -- LSP --
+;;
+
+;; (setq lsp-clients-clangd-args '("-j=3"
+;;                                 "--background-index"
+;;                                 "--clang-tidy"
+;;                                 "--completion-style=detailed"
+;;                                 "--header-insertion=never"
+;;                                 "--header-insertion-decorators=0"))
+;; (after! lsp-clangd (set-lsp-priority! 'clangd 2))
+;;
+
+(require 'rtags) ;; optional, must have rtags installed
+
+(after! projectile
+  (defun my/cmake-ide-find-project ()
+    "Finds the directory of the project for cmake-ide."
+    (with-eval-after-load 'projectile
+      (setq cmake-ide-project-dir (projectile-project-root))
+      (setq cmake-ide-build-dir (concat cmake-ide-project-dir "build")))
+    (setq cmake-ide-compile-command
+          (concat "cd " cmake-ide-build-dir " && cmake .. && make"))
+    (cmake-ide-load-db))
+
+  (defun my/switch-to-compilation-window ()
+    "Switches to the *compilation* buffer after compilation."
+    (other-window 1))
+;;  :bind ([remap comment-region] . cmake-ide-compile)
+
+  (advice-add 'cmake-ide-compile :after #'my/switch-to-compilation-window)
+
+  (add-hook 'c++-mode-hook #'my/cmake-ide-find-project)
+
+  )

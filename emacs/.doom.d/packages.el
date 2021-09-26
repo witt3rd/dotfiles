@@ -50,3 +50,5 @@
 ;(unpin! t)
 
 (package! org-super-agenda)
+(package! rtags
+(package! cmake-ide)
