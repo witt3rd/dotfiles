@@ -99,17 +99,19 @@
 ;; -- LSP --
 ;;
 
-;; (setq lsp-clients-clangd-args '("-j=3"
-;;                                 "--background-index"
-;;                                 "--clang-tidy"
-;;                                 "--completion-style=detailed"
-;;                                 "--header-insertion=never"
-;;                                 "--header-insertion-decorators=0"))
-;; (after! lsp-clangd (set-lsp-priority! 'clangd 2))
-;;
+(setq lsp-clients-clangd-args '("-j=3"
+                                "--background-index"
+                                "--clang-tidy"
+                                "--completion-style=detailed"
+                                "--header-insertion=never"
+                                "--header-insertion-decorators=0"))
+(after! lsp-clangd (set-lsp-priority! 'clangd 2))
 
+;;
 (require 'rtags) ;; optional, must have rtags installed
 
+;; -- CMake IDE --
+;;
 (after! projectile
   (defun my/cmake-ide-find-project ()
     "Finds the directory of the project for cmake-ide."
