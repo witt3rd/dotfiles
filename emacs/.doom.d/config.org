@@ -168,11 +168,25 @@ Add [[][org-super-agenda]] for nicer agenda views
 
 #+end_src
 
+* RTags
+
 [[][RTags]]
 
 #+begin_src emacs-lisp :tangle yes
 
 (require 'rtags)
+
+#+end_src
+
+* Debugging
+
+** C/CPP
+
+[[][dap-cpptools]]
+
+#+begin_src emacs-lisp :tangle yes
+
+(require 'dap-cpptools)
 
 #+end_src
 

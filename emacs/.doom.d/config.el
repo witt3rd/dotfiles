@@ -86,6 +86,8 @@
 
 (require 'rtags)
 
+(require 'dap-cpptools)
+
 (after! projectile
   (defun my/cmake-ide-find-project ()
     "Finds the directory of the project for cmake-ide."
