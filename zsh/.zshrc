@@ -1,3 +1,5 @@
+source $HOME/.profile
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -51,7 +53,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+# ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # Caution: this setting can cause issues with multiline prompts (zsh 5.7.1 and newer seem to work)
@@ -131,11 +133,5 @@ fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # <<< P10K
-
-# >>> doom emacs
-export EMACSDIR="$HOME/doom-emacs"
-export DOOMDIR="$HOME/.doom.d"
-export DOOMLOCALDIR="$HOME/.doom.d.local"
-# <<< doom emacs
 
 eval "$(pyenv init -)"
