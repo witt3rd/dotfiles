@@ -2,8 +2,7 @@
 
 This is an ongoing evolution of my original Emacs configuration files, inspired by a bunch of resources I've found online.
 
-* Table of Contents
- :TOC:
+* Table of Contents :TOC:
 - [[#personal-info][Personal Info]]
 - [[#appearance][Appearance]]
   - [[#font][Font]]
@@ -13,6 +12,9 @@ This is an ongoing evolution of my original Emacs configuration files, inspired 
 - [[#projectile][Projectile]]
 - [[#org-mode][Org mode]]
 - [[#lsp][LSP]]
+- [[#rtags][RTags]]
+- [[#debugging][Debugging]]
+  - [[#ccpp][C/CPP]]
 - [[#cmake-ide][CMake IDE]]
 
 * Personal Info
@@ -162,7 +164,7 @@ Add [[][org-super-agenda]] for nicer agenda views
                                 "--background-index"
                                 "--clang-tidy"
                                 "--completion-style=detailed"
-                                "--header-insertion=never"
+                                "--header-insertion=iwyu"
                                 "--header-insertion-decorators=0"))
 (after! lsp-clangd (set-lsp-priority! 'clangd 2))
 
