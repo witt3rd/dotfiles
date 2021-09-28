@@ -1,0 +1,33 @@
+#+TITLE: Linux Aptitude Setup
+#+PROPERTY: header-args:sh :tangle apt-setup.sh
+
+* Table of Contents
+:TOC:
+
+* Update Repositories
+
+#+begin_src sh
+sudo apt update
+#+end_src
+
+* Upgrade Repositories
+
+#+begin_src sh
+sudo apt upgrade -y
+#+end_src
+
+#+RESULTS:
+
+* CPP
+
+Until `gcc` is promoted to an official release, it is necessary to add the test repository:
+
+#+begin_src sh
+sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+#+end_src
+
+Install the latest C++ compiler:
+
+#+begin_src sh
+sudo apt install -y gcc-11 g++-11
+#+end_src
