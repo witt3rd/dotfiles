@@ -1,8 +1,14 @@
 #+TITLE: Linux Aptitude Setup
 #+PROPERTY: header-args:sh :tangle apt-setup.sh
 
-* Table of Contents
-:TOC:
+* Table of Contents :TOC:
+- [[#update-repositories][Update Repositories]]
+- [[#upgrade-repositories][Upgrade Repositories]]
+- [[#emacs][Emacs]]
+- [[#cpp][CPP]]
+  - [[#gcc][GCC]]
+  - [[#clang][Clang]]
+- [[#lsp][LSP]]
 
 * Update Repositories
 
@@ -16,9 +22,16 @@ sudo apt update
 sudo apt upgrade -y
 #+end_src
 
-#+RESULTS:
+* Emacs
+
+#+begin_src sh
+sudo add-apt-repository ppa:kelleyk/emacs
+sudo apt install emacs27
+#+end_src
 
 * CPP
+
+** GCC
 
 Until `gcc` is promoted to an official release, it is necessary to add the test repository:
 
@@ -30,4 +43,24 @@ Install the latest C++ compiler:
 
 #+begin_src sh
 sudo apt install -y gcc-11 g++-11
+#+end_src
+
+** Clang
+
+Instructions take from [[https://apt.llvm.org/][llvm.org]].
+
+#+begin_src sh
+wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add - # Fingerprint: 6084 F3CF 814B 57C1 CF12 EFD5 15CF 4D18 AF4F 7421
+#+end_src
+
+#+begin_src sh
+sudo apt-add-repository "deb http://apt.llvm.org/focal/ llvm-toolchain-focal main"
+sudo apt-get install clang-format-14 clang-tidy-14 clang-tools-14 clang-14 clangd-14 libc++-14-dev libc++1-14 libc++abi-14-dev libc++abi1-14 libclang-14-dev libclang1-14 liblldb-14-dev libllvm-14-ocaml-dev libomp-14-dev libomp5-14 lld-14 lldb-14 llvm-14-dev llvm-runtime llvm-14 python-clang
+#+end_src
+
+* LSP
+
+#+begin_src sh
+#sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-12 100
+
 #+end_src
