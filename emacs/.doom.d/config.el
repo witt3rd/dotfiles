@@ -4,7 +4,7 @@
       user-mail-address "donald@witt3rd.com")
 
 (setq doom-font (font-spec :family "FiraCode Nerd Font Mono" :size 16 :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "Cantarell" :size 16)
+      doom-variable-pitch-font (font-spec :family "Cantarell" :size 18)
       doom-big-font (font-spec :family "Cantarell" :size 36 :weight 'bold))
 
 (setq custom-safe-themes t)
@@ -33,7 +33,7 @@
     (variable-pitch-mode 1)
     (auto-fill-mode 0)
     (visual-line-mode 1)
-    (dolist (face '((org-level-1 . 1.5)
+    (dolist (face '((org-level-1 . 1.4)
                     (org-level-2 . 1.3)
                     (org-level-3 . 1.2)
                     (org-level-4 . 1.1)
