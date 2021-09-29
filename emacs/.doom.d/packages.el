@@ -49,6 +49,7 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
+(package! visual-fill-column)
 (package! org-super-agenda)
 (package! rtags)
 (package! cmake-ide)

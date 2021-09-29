@@ -3,10 +3,9 @@
 (setq user-full-name "Donald Thompson"
       user-mail-address "donald@witt3rd.com")
 
-(setq
- doom-font (font-spec :family "FiraCode Nerd Font Mono" :size 16 :weight 'semi-light)
- doom-variable-pitch-font (font-spec :family "FiraCode Nerd Font" :size 16)
- doom-big-font (font-spec :family "FiraCode Nerd Font" :size 36 :weight 'bold))
+(setq doom-font (font-spec :family "FiraCode Nerd Font Mono" :size 16 :weight 'semi-light)
+      doom-variable-pitch-font (font-spec :family "Cantarell" :size 16)
+      doom-big-font (font-spec :family "Cantarell" :size 36 :weight 'bold))
 
 (setq custom-safe-themes t)
 (if (window-system)
@@ -18,14 +17,55 @@
 
 (setq custom-file null-device)
 
-(setq
- projectile-project-search-path '(("~/src/witt3rd/" . 5) "~/org" ("~/dotfiles" . 0))
- projectile-auto-discover 1
+(setq projectile-project-search-path '(("~/src/witt3rd/" . 5) "~/org" ("~/dotfiles" . 0))
+      projectile-auto-discover 1
  )
 
-(setq
- org-directory "~/org/"
+(setq org-directory "~/org/"
+      org-ellipsis " ▼"
+      org-hide-emphasis-markers nil
  )
+
+(after! org
+
+  (defun my/org-mode-setup ()
+    (org-indent-mode 0)
+    (variable-pitch-mode 1)
+    (auto-fill-mode 0)
+    (visual-line-mode 1)
+    (dolist (face '((org-level-1 . 1.5)
+                    (org-level-2 . 1.3)
+                    (org-level-3 . 1.2)
+                    (org-level-4 . 1.1)
+                    (org-level-5 . 1.0)
+                    (org-level-6 . 1.0)
+                    (org-level-7 . 1.0)
+                    (org-level-8 . 1.0)))
+      (set-face-attribute (car face) nil :font "Cantarell" :weight 'bold :height (cdr face)))
+    (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+    (set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
+    (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+    (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+    (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
+    )
+
+  (add-hook 'org-mode-hook #'my/org-mode-setup)
+  )
+
+(use-package! visual-fill-column
+  :after org
+  :config
+  (message "not falling for the banana in the tailpipe")
+  (defun my/org-mode-visual-fill ()
+    (setq visual-fill-column-width 100
+          visual-fill-column-center-text t)
+    (visual-fill-column-mode 1)
+    )
+
+  (add-hook 'org-mode-hook #'my/org-mode-visual-fill)
+  )
 
 (use-package! org-super-agenda
   :after org-agenda
@@ -56,6 +96,7 @@
 (after! lsp-clangd (set-lsp-priority! 'clangd 2))
 
 (after! projectile
+
   (defun my/cmake-ide-find-project ()
     "Finds the directory of the project for cmake-ide."
     (with-eval-after-load 'projectile
@@ -64,13 +105,18 @@
     (setq cmake-ide-compile-command
           (concat "cd " cmake-ide-build-dir " && cmake .. && make"))
     (cmake-ide-load-db))
+
   (defun my/switch-to-compilation-window ()
     "Switches to the *compilation* buffer after compilation."
     (other-window 1))
-  ;;  :bind ([remap comment-region] . cmake-ide-compile)
+
+  ;; TODO
+  ;;:bind ([remap comment-region] . cmake-ide-compile)
+
   (advice-add 'cmake-ide-compile :after #'my/switch-to-compilation-window)
+
   (add-hook 'c++-mode-hook #'my/cmake-ide-find-project)
-  )
+)
 
 (require 'rtags)
 
