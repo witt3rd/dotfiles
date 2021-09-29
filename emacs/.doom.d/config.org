@@ -4,6 +4,7 @@ This is an ongoing evolution of my original Emacs configuration files, inspired 
 
 * Table of Contents :TOC:
 - [[#doom-configuration-functions-and-macros][Doom Configuration Functions and Macros]]
+- [[#preamble][Preamble]]
 - [[#personal-info][Personal Info]]
 - [[#appearance][Appearance]]
   - [[#font][Font]]
@@ -22,20 +23,23 @@ This is an ongoing evolution of my original Emacs configuration files, inspired 
 
 Here are some additional functions/macros that could help you configure Doom:
 
-- `load!' for loading external *.el files relative to this one
-- `use-package!' for configuring packages
-- `after!' for running code after a package has loaded
-- `add-load-path!' for adding directories to the `load-path', relative to
-  this file. Emacs searches the `load-path' when you load packages with
-  `require' or `use-package'.
-- `map!' for binding new keys
+- =load!= for loading external =*.el= files relative to this one
+- =use-package!= for configuring packages
+- =after!= for running code after a package has loaded
+- =add-load-path!' for adding directories to the =load-path=, relative to this file. Emacs searches the =load-path= when you load packages with =require= or =use-package=.
+- =map!= for binding new keys
+
+* Preamble
+
+#+begin_src emacs-lisp :tangle yes
+;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+#+end_src
 
 * Personal Info
 
 Some functionality uses this to identify you, e.g. GPG configuration, email clients, file templates and snippets.
 
 #+begin_src emacs-lisp :tangle yes
-;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 (setq user-full-name "Donald Thompson"
       user-mail-address "donald@witt3rd.com")
 #+end_src
@@ -46,18 +50,15 @@ This section affects the themes, fonts, and other visual elements.
 
 ** Font
 
-#+begin_src emacs-lisp :tangle yes
+Doom exposes five (optional) variables for controlling fonts in Doom. Here are the three important ones:
 
-;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
-;; are the three important ones:
-;;
-;; + `doom-font'
-;; + `doom-variable-pitch-font'
-;; + `doom-big-font' -- used for `doom-big-font-mode'; use this for
-;;   presentations or streaming.
-;;
-;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
-;; font string. You generally only need these two:
++ =doom-font=
++ =doom-variable-pitch-font=
++ =doom-big-font= -- used for =doom-big-font-mode=; use this for presentations or streaming.
+
+They all accept either a font-spec, font string (="Input Mono-12"=), or xlfd font string. You generally only need these two:
+
+#+begin_src emacs-lisp :tangle yes
 (setq
  doom-font (font-spec :family "FiraCode Nerd Font Mono" :size 16 :weight 'semi-light)
  doom-variable-pitch-font (font-spec :family "FiraCode Nerd Font" :size 16)
@@ -66,11 +67,9 @@ This section affects the themes, fonts, and other visual elements.
 
 ** Theme
 
-#+begin_src emacs-lisp :tangle yes
+ There are two ways to load a theme. Both assume the theme is installed and available. You can either set =doom-theme= or manually load a theme with the =load-theme= function. This is the default:
 
-;; There are two ways to load a theme. Both assume the theme is installed and
-;; available. You can either set `doom-theme' or manually load a theme with the
-;; `load-theme' function. This is the default:
+#+begin_src emacs-lisp :tangle yes
 (setq custom-safe-themes t)
 (if (window-system)
     (setq doom-theme 'doom-outrun-electric)
@@ -80,10 +79,9 @@ This section affects the themes, fonts, and other visual elements.
 
 ** Line Numbers
 
-#+begin_src emacs-lisp :tangle yes
+This determines the style of line numbers in effect. If set to =nil=, line numbers are disabled. For relative line numbers, set this to =relative=.
 
-; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
+#+begin_src emacs-lisp :tangle yes
 (setq display-line-numbers-type t)
 #+end_src
 
