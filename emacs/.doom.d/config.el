@@ -3,13 +3,13 @@
 (setq user-full-name "Donald Thompson"
       user-mail-address "donald@witt3rd.com")
 
-(setq doom-font (font-spec :family "FiraCode Nerd Font Mono" :size 16 :weight 'semi-light)
+(setq doom-font (font-spec :family "JetBrains Mono" :size 16 :weight 'regular)
       doom-variable-pitch-font (font-spec :family "Cantarell" :size 18)
       doom-big-font (font-spec :family "Cantarell" :size 36 :weight 'bold))
 
 (setq custom-safe-themes t)
 (if (window-system)
-    (setq doom-theme 'doom-outrun-electric)
+    (setq doom-theme 'doom-dark+)
   (setq doom-theme 'doom-one))
 (setq fancy-splash-image "~/.doom.d/doom.png")
 
@@ -21,22 +21,25 @@
       projectile-auto-discover 1
  )
 
-(setq org-directory "~/org/"
-      org-ellipsis " ▼"
-      org-hide-emphasis-markers nil
- )
-
 (after! org
+
+  (setq org-directory "~/org/"
+        org-ellipsis " ▼"
+        org-hide-emphasis-markers nil
+        org-agenda-files (list "~/org")
+        org-log-done 'time
+        org-log-into-drawer t
+        )
 
   (defun my/org-mode-setup ()
     (org-indent-mode 0)
     (variable-pitch-mode 1)
     (auto-fill-mode 0)
     (visual-line-mode 1)
-    (dolist (face '((org-level-1 . 1.4)
-                    (org-level-2 . 1.3)
-                    (org-level-3 . 1.2)
-                    (org-level-4 . 1.1)
+    (dolist (face '((org-level-1 . 1.2)
+                    (org-level-2 . 1.1)
+                    (org-level-3 . 1.05)
+                    (org-level-4 . 1.0)
                     (org-level-5 . 1.0)
                     (org-level-6 . 1.0)
                     (org-level-7 . 1.0)
