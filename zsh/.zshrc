@@ -12,6 +12,16 @@ fi
 export PATH="$HOME/.local/bin:/usr/local/sbin:$PATH"
 export PATH="$HOME/doom-emacs/bin:$PATH"
 
+case `uname` in
+  Darwin)
+    export PATH="/usr/local/opt/llvm/bin:$PATH"
+  ;;
+  Linux)
+  ;;
+  FreeBSD)
+  ;;
+esac
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
