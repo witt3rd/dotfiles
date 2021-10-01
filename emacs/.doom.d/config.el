@@ -33,7 +33,7 @@
 
   (defun my/org-mode-setup ()
     (org-indent-mode 0)
-    (variable-pitch-mode 1)
+    (variable-pitch-mode 0)
     (auto-fill-mode 0)
     (visual-line-mode 1)
     (dolist (face '((org-level-1 . 1.2)
