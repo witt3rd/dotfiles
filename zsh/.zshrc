@@ -146,3 +146,7 @@ fi
 # <<< P10K
 
 eval "$(pyenv init -)"
+
+# configure the LESS pager to display inline with short output and don't clear the screen
+# this affects various git commands, like listing branches that pipe through LESS now
+export LESS="--no-init --quit-if-one-screen -R"
