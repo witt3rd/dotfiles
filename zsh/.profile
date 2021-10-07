@@ -10,4 +10,4 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
 # <<< python
 
-source /home/donald/.cargo/env
+. /home/donald/.cargo/env
