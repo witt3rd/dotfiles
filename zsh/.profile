@@ -10,4 +10,10 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
 # <<< python
 
-source /home/donald/.cargo/env
+# >>> go
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
+# <<< go
+
+# >>> rust
+. /home/donald/.cargo/env
+# <<< rust

@@ -13,7 +13,10 @@
   (setq doom-theme 'doom-one))
 (setq fancy-splash-image "~/.doom.d/doom.png")
 
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type 'relative)
+
+(map! "C->" 'indent-rigidly-right-to-tab-stop)
+(map! "C-<" 'indent-rigidly-left-to-tab-stop)
 
 (setq custom-file null-device)
 
@@ -31,44 +34,43 @@
         org-log-into-drawer t
         )
 
-  (defun my/org-mode-setup ()
-    (org-indent-mode 0)
-    (variable-pitch-mode 0)
-    (auto-fill-mode 0)
-    (visual-line-mode 1)
-    (dolist (face '((org-level-1 . 1.2)
-                    (org-level-2 . 1.1)
-                    (org-level-3 . 1.05)
-                    (org-level-4 . 1.0)
-                    (org-level-5 . 1.0)
-                    (org-level-6 . 1.0)
-                    (org-level-7 . 1.0)
-                    (org-level-8 . 1.0)))
-      (set-face-attribute (car face) nil :font "Cantarell" :weight 'bold :height (cdr face)))
-    (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
-    (set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
-    (set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
-    (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
-    (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
-    (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
-    (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
-    )
-
-  (add-hook 'org-mode-hook #'my/org-mode-setup)
+; (defun my/org-mode-setup ()
+;    (org-indent-mode 0)
+;    (variable-pitch-mode 0)
+;    (auto-fill-mode 0)
+;    (visual-line-mode 1)
+;    (dolist (face '((org-level-1 . 1.2)
+;                    (org-level-2 . 1.1)
+;                    (org-level-3 . 1.05)
+;                    (org-level-4 . 1.0)
+;                    (org-level-5 . 1.0)
+;                    (org-level-6 . 1.0)
+;                    (org-level-7 . 1.0)
+;                    (org-level-8 . 1.0)))
+;      (set-face-attribute (car face) nil :font "Cantarell" :weight 'bold :height (cdr face)))
+;    (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+;    (set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
+;    (set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
+;    (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+;    (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+;    (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+;    (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
+;    )
+;
+;  (add-hook 'org-mode-hook #'my/org-mode-setup)
   )
 
-(use-package! visual-fill-column
-  :after org
-  :config
-  (message "not falling for the banana in the tailpipe")
-  (defun my/org-mode-visual-fill ()
-    (setq visual-fill-column-width 100
-          visual-fill-column-center-text t)
-    (visual-fill-column-mode 1)
-    )
-
-  (add-hook 'org-mode-hook #'my/org-mode-visual-fill)
-  )
+;(use-package! visual-fill-column
+;  :after org
+;  :config
+;  (defun my/org-mode-visual-fill ()
+;    (setq visual-fill-column-width 200
+;          visual-fill-column-center-text t)
+;    (visual-fill-column-mode 1)
+;    )
+;
+;  (add-hook 'org-mode-hook #'my/org-mode-visual-fill)
+;  )
 
 (use-package! org-super-agenda
   :after org-agenda
@@ -96,6 +98,7 @@
                                 "--completion-style=detailed"
                                 "--header-insertion=iwyu"
                                 "--header-insertion-decorators=0"))
+(setq lsp-ui-mode nil)
 (after! lsp-clangd (set-lsp-priority! 'clangd 2))
 
 (after! projectile
