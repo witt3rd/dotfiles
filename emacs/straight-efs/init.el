@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 ;;
 ;; Emacs performance
 ;;
@@ -46,10 +48,14 @@
 (set-fringe-mode 10)                    ; give some breathing room
 (setq visible-bell t)                   ; don't ding
 (setq initial-scratch-message nil)      ; don't show message in scratch buffer
+
+;; line numbering
 (column-number-mode)
 (global-display-line-numbers-mode t)
-(setq display-line-numbers 'relative)
-
+(setq display-line-numbers-type 'relative)
+;;(dolist (mode '(term-mode-hook
+;;                eshell-mode-hook))
+;;  (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 ;;
 ;; Editor behavior
@@ -116,10 +122,13 @@
   :custom
   (vertico-cycle t)
   :init
-  (vertico-mode))
+  (vertico-mode)
+  ;; Grow and shrink the Vertico minibuffer
+  (setq vertico-resize t))
 
 ;; savehist:
 ;;
+;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
   :init
   (vertico-mode))
@@ -133,6 +142,44 @@
   :init
   (marginalia-mode))
 
+;; orderless: https://github.com/oantolin/orderless
+;;
+;; Optionally use the `orderless' completion style. See
+;; `+orderless-dispatch' in the Consult wiki for an advanced Orderless style
+;; dispatcher. Additionally enable `partial-completion' for file path
+;; expansion. `partial-completion' is important for wildcard support.
+;; Multiple files can be opened at once with `find-file' if you enter a
+;; wildcard. You may also give the `initials' completion style a try.
+(use-package orderless
+  :init
+  ;; Configure a custom style dispatcher (see the Consult wiki)
+  ;; (setq orderless-style-dispatchers '(+orderless-dispatch))
+  (setq completion-styles '(orderless)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
+
+;; A few more useful configurations...
+(use-package emacs
+  :init
+  ;; Add prompt indicator to `completing-read-multiple'.
+  ;; Alternatively try `consult-completing-read-multiple'.
+  (defun crm-indicator (args)
+    (cons (concat "[CRM] " (car args)) (cdr args)))
+  (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
+
+  ;; Do not allow the cursor in the minibuffer prompt
+  (setq minibuffer-prompt-properties
+        '(read-only t cursor-intangible t face minibuffer-prompt))
+  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
+
+  ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
+  ;; Vertico commands are hidden in normal buffers.
+  ;; (setq read-extended-command-predicate
+  ;;       #'command-completion-default-include-p)
+
+  ;; Enable recursive minibuffers
+  (setq enable-recursive-minibuffers t))
+
 ;; consult: https://github.com/minad/consult
 ;;
 
@@ -141,15 +188,100 @@
 ;;
 
 
-;; orderless: https://github.com/oantolin/orderless
+;; which-key: https://github.com/justbur/emacs-which-key
 ;;
-;; Use the `orderless' completion style. Additionally enable
-;; `partial-completion' for file path expansion. `partial-completion' is
-;; important for wildcard support. Multiple files can be opened at once
-;; with `find-file' if you enter a wildcard. You may also give the
-;; `initials' completion style a try.
-(use-package orderless
+(use-package which-key
+  :init (which-key-mode)
+  :config
+  (setq which-key-idle-delay 0.3))
+
+;; helpful: https://github.com/Wilfred/helpful
+;;
+(use-package helpful)
+;; Note that the built-in `describe-function' includes both functions
+;; and macros. `helpful-function' is functions only, so we provide
+;; `helpful-callable' as a drop-in replacement.
+(global-set-key (kbd "C-h f") #'helpful-callable)
+(global-set-key (kbd "C-h v") #'helpful-variable)
+(global-set-key (kbd "C-h k") #'helpful-key)
+;; Lookup the current symbol at point. C-c C-d is a common keybinding
+;; for this in lisp modes.
+(global-set-key (kbd "C-c C-d") #'helpful-at-point)
+;; Look up *F*unctions (excludes macros).
+;;
+;; By default, C-h F is bound to `Info-goto-emacs-command-node'. Helpful
+;; already links to the manual, if a function is referenced there.
+(global-set-key (kbd "C-h F") #'helpful-function)
+;; Look up *C*ommands.
+;;
+;; By default, C-h C is bound to describe `describe-coding-system'. I
+;; don't find this very useful, but it's frequently useful to only
+;; look at interactive functions.
+(global-set-key (kbd "C-h C") #'helpful-command)
+
+
+;; treemacs: https://github.com/Alexander-Miller/treemacs
+;;
+
+
+;;
+;; Programming
+;;
+
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+
+;; lsp-mode: https://github.com/emacs-lsp/lsp-mode
+;;
+(use-package lsp-mode
   :init
-  (setq completion-styles '(orderless)
-        completion-category-defaults nil
-        completion-category-overrides '((file (styles partial-completion)))))
+  (setq lsp-keymap-prefix "C-c l")
+  :config
+  (lsp-enable-which-key-integration t)
+  :commands
+  (lsp lsp-deferred))
+
+;; lsp-ui: https://emacs-lsp.github.io/lsp-ui/
+;;
+(use-package lsp-ui
+  :commands
+  lsp-ui-mode)
+
+;; dap-mode: https://emacs-lsp.github.io/dap-mode/
+;;
+(use-package dap-mode)
+;; (use-package dap-LANGUAGE) to load the dap adapter for your language
+
+;; lsp-treemacs: https://github.com/emacs-lsp/lsp-treemacs
+;;
+
+
+;;
+;; C/C++
+;; - https://emacs-lsp.github.io/lsp-mode/tutorials/CPP-guide/
+;; - https://clangd.llvm.org/
+;;
+;;
+(add-hook 'c++-mode-hook 'lsp-deffered)
+
+;;
+;; LaTeX
+;; - https://tug.org/texlive/
+;;
+;; texlab: https://github.com/latex-lsp/texlab
+;;
+(use-package doc-view)
+
+;;
+;; Python
+;; - https://github.com/Microsoft/python-language-server
+;;
+;; lsp-python-ms: https://emacs-lsp.github.io/lsp-python-ms/
+;;
+(use-package lsp-python-ms
+  :ensure t
+  :init (setq lsp-python-ms-auto-install-server t)
+  :hook (python-mode . (lambda ()
+                         (require 'lsp-python-ms)
+                         (lsp-deferred))))  ; or lsp
+(add-hook 'python-mode-hook 'lsp-deffered)

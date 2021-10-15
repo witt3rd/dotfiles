@@ -17,3 +17,7 @@ export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 # >>> rust
 . /home/donald/.cargo/env
 # <<< rust
+
+# >>> tex
+export PATH=/usr/local/texlive/2021/bin/x86_64-linux:$PATH
+# <<< tex
