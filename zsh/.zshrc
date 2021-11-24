@@ -147,7 +147,7 @@ fi
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # <<< P10K
 
-eval "$(pyenv init -)"
+#eval "$(pyenv init -)"
 
 # configure the LESS pager to display inline with short output and don't clear the screen
 # this affects various git commands, like listing branches that pipe through LESS now
