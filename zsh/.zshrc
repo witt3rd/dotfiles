@@ -121,6 +121,8 @@ export ARCHFLAGS="-arch x86_64"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias pip='noglob pip'
+alias pipenv='noglob pipenv'
 alias ci="code-insiders"
 # alias e="emacsclient -c -n --alternate-editor=''"   # emacs gui
 # alias et="emacsclient -c -nw --alternate-editor=''" # emacs terminal
