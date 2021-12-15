@@ -92,7 +92,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions poetry)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -121,6 +121,9 @@ export ARCHFLAGS="-arch x86_64"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias pip='noglob pip'
+alias pipenv='noglob pipenv'
+alias poetry='noglob poetry'
 alias ci="code-insiders"
 # alias e="emacsclient -c -n --alternate-editor=''"   # emacs gui
 # alias et="emacsclient -c -nw --alternate-editor=''" # emacs terminal
@@ -145,7 +148,9 @@ fi
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # <<< P10K
 
-eval "$(pyenv init -)"
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
 
 # configure the LESS pager to display inline with short output and don't clear the screen
 # this affects various git commands, like listing branches that pipe through LESS now
