@@ -6,6 +6,11 @@ export DOOMLOCALDIR="$HOME/.doom.d.local"
 
 # >>> PYTHON
 export PATH="$(python3 -m site --user-base)/bin:${PATH}"
+export PATH="$HOME/.poetry/bin:$PATH"
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+
 # <<< PYTHON
 
 # >>> go
@@ -19,5 +24,3 @@ export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 # >>> tex
 export PATH=/usr/local/texlive/2021/bin/x86_64-linux:$PATH
 # <<< tex
-
-export PATH="$HOME/.poetry/bin:$PATH"
