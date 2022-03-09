@@ -156,3 +156,7 @@ eval "$(pyenv init --path)"
 # this affects various git commands, like listing branches that pipe through LESS now
 export LESS="--no-init --quit-if-one-screen -R"
 eval "$(pyenv init -)"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
