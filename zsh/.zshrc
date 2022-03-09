@@ -151,11 +151,12 @@ fi
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+export PATH="$HOME/.poetry/bin:$PATH"
 
 # configure the LESS pager to display inline with short output and don't clear the screen
 # this affects various git commands, like listing branches that pipe through LESS now
 export LESS="--no-init --quit-if-one-screen -R"
-eval "$(pyenv init -)"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
