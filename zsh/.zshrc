@@ -157,6 +157,7 @@ export PATH="$HOME/.poetry/bin:$PATH"
 # configure the LESS pager to display inline with short output and don't clear the screen
 # this affects various git commands, like listing branches that pipe through LESS now
 export LESS="--no-init --quit-if-one-screen -R"
+<<<<<<< HEAD
 
 # <<< DOCKER (WSL)
 # https://dev.to/bowmanjd/install-docker-on-windows-wsl-without-docker-desktop-34m9
@@ -171,3 +172,10 @@ if [ ! -S "$DOCKER_SOCK" ]; then
 fi
 
 # >>> DOCKER (WSL)
+||||||| ca9e02c
+=======
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+>>>>>>> b6e0f8e52d7be08a197b840440c3af4c11040c47
