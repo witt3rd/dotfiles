@@ -1,5 +1,3 @@
-source $HOME/.profile
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -10,17 +8,6 @@ fi
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH="$HOME/.local/bin:/usr/local/sbin:$PATH"
-export PATH="$HOME/doom-emacs/bin:$PATH"
-
-case `uname` in
-  Darwin)
-    export PATH="/usr/local/opt/llvm/bin:$PATH"
-  ;;
-  Linux)
-  ;;
-  FreeBSD)
-  ;;
-esac
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -30,7 +17,6 @@ export ZSH=$HOME/.oh-my-zsh
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="powerlevel10k/powerlevel10k"
-#ZSH_THEME="dracula"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -49,13 +35,13 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
+DISABLE_UPDATE_PROMPT="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
+DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -64,7 +50,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # Caution: this setting can cause issues with multiline prompts (zsh 5.7.1 and newer seem to work)
@@ -92,7 +78,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-syntax-highlighting zsh-autosuggestions poetry)
+plugins=(aws git pyenv python vscode zsh-syntax-highlighting zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -113,6 +99,10 @@ export LANG=en_US.UTF-8
 # Compilation flags
 export ARCHFLAGS="-arch x86_64"
 
+# configure the LESS pager to display inline with short output and don't clear the screen
+# this affects various git commands, like listing branches that pipe through LESS now
+export LESS="--no-init --quit-if-one-screen -R"
+
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -123,12 +113,7 @@ export ARCHFLAGS="-arch x86_64"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias pip='noglob pip'
 alias pipenv='noglob pipenv'
-alias poetry='noglob poetry'
 alias ci="code-insiders"
-# alias e="emacsclient -c -n --alternate-editor=''"   # emacs gui
-# alias et="emacsclient -c -nw --alternate-editor=''" # emacs terminal
-e () { nohup emacs "$@" >& /dev/null &! }
-et () { emacs -nw "$@" }
 
 # >>> NVM
 export NVM_DIR="$HOME/.nvm"
@@ -148,19 +133,13 @@ fi
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # <<< P10K
 
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
+# >>> Pyenv
 eval "$(pyenv init -)"
-export PATH="$HOME/.poetry/bin:$PATH"
+# <<< Pyenv
 
-# configure the LESS pager to display inline with short output and don't clear the screen
-# this affects various git commands, like listing branches that pipe through LESS now
-export LESS="--no-init --quit-if-one-screen -R"
-
-# <<< DOCKER (WSL)
+# >>> DOCKER (WSL)
 # https://dev.to/bowmanjd/install-docker-on-windows-wsl-without-docker-desktop-34m9
-DOCKER_DISTRO="Ubuntu-20.04"
+DOCKER_DISTRO="Ubuntu"
 DOCKER_DIR=/mnt/wsl/shared-docker
 DOCKER_SOCK="$DOCKER_DIR/docker.sock"
 export DOCKER_HOST="unix://$DOCKER_SOCK"
@@ -170,14 +149,29 @@ if [ ! -S "$DOCKER_SOCK" ]; then
     /mnt/c/Windows/System32/wsl.exe -d $DOCKER_DISTRO sh -c "nohup sudo -b dockerd < /dev/null > $DOCKER_DIR/dockerd.log 2>&1"
 fi
 
-# >>> DOCKER (WSL)
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 # Start Docker daemon automatically when logging in if not running.
 RUNNING=`ps aux | grep dockerd | grep -v grep`
 if [ -z "$RUNNING" ]; then
     sudo dockerd > /dev/null 2>&1 &
     disown
 fi
+# <<< DOCKER (WSL)
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/donald/.pyenv/versions/anaconda3-2021.11/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/donald/.pyenv/versions/anaconda3-2021.11/etc/profile.d/conda.sh" ]; then
+        . "/home/donald/.pyenv/versions/anaconda3-2021.11/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/donald/.pyenv/versions/anaconda3-2021.11/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

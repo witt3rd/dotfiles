@@ -1,9 +1,0 @@
-* Emacs
-** IDE
-*** C/CPP
-**** Prerequisites
-- [[https://clang.llvm.org/][clang]]
-- [[https://clangd.llvm.org/installation][clangd]]
-- [[https://packages.ubuntu.com/focal/libclang-dev][libclang-dev]]
-- [[https://github.com/Andersbakken/rtags][RTags]]
-- [[http://www.gdbtutorial.com/tutorial/how-install-gdb][gdb]]
