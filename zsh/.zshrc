@@ -73,6 +73,15 @@ COMPLETION_WAITING_DOTS="true"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+# >>> Pyenv
+# Note: Loaded before plugins
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+# <<< Pyenv
+
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
@@ -133,10 +142,6 @@ fi
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # <<< P10K
 
-# >>> Pyenv
-eval "$(pyenv init -)"
-# <<< Pyenv
-
 # >>> DOCKER (WSL)
 # https://dev.to/bowmanjd/install-docker-on-windows-wsl-without-docker-desktop-34m9
 DOCKER_DISTRO="Ubuntu"
@@ -158,18 +163,18 @@ fi
 # <<< DOCKER (WSL)
 
 # >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/donald/.pyenv/versions/anaconda3-2021.11/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/donald/.pyenv/versions/anaconda3-2021.11/etc/profile.d/conda.sh" ]; then
-        . "/home/donald/.pyenv/versions/anaconda3-2021.11/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/donald/.pyenv/versions/anaconda3-2021.11/bin:$PATH"
-    fi
-fi
-unset __conda_setup
+# # !! Contents within this block are managed by 'conda init' !!
+# __conda_setup="$('/home/donald/.pyenv/versions/anaconda3-2021.11/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__conda_setup"
+# else
+#     if [ -f "/home/donald/.pyenv/versions/anaconda3-2021.11/etc/profile.d/conda.sh" ]; then
+#         . "/home/donald/.pyenv/versions/anaconda3-2021.11/etc/profile.d/conda.sh"
+#     else
+#         export PATH="/home/donald/.pyenv/versions/anaconda3-2021.11/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
 # <<< conda initialize <<<
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
