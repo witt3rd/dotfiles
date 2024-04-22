@@ -1,0 +1,17 @@
+[user]
+	email = witt3rd@witt3rd.com
+	name = Donald Thompson
+[pull]
+	rebase = true
+[alias]
+	s = status
+	ac = !git add -A && git commit -m
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[init]
+	defaultBranch = master
+[core]
+	editor = code-insiders --wait
