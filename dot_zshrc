@@ -149,6 +149,7 @@ else
     echo "code-insiders not found, not setting as default EDITOR"
 fi
 
+export PYTHON_CONFIGURE_OPTS="--enable-framework"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -162,3 +163,5 @@ fi
 if [ -f ~/.env ]; then
     source ~/.env
 fi
+
+export PATH="/opt/homebrew/bin:$PATH"
