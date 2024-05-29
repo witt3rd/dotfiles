@@ -5,7 +5,7 @@ if [ -d "$HOME/.pyenv" ] ; then
 fi
 
 if [ -d "$HOME/.rye" ] ; then
-    export PATH="$HOME/.rye/shims"
+    export PATH="$HOME/.rye/shims:$PATH"
     source "$HOME/.rye/env"
 fi
 
