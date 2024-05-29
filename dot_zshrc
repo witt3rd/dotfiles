@@ -2,8 +2,10 @@ if [ -d "$HOME/.pyenv" ] ; then
     export PYENV_ROOT="$HOME/.pyenv"
     export PATH="$PYENV_ROOT/bin:$PATH"
     eval "$(pyenv init -)"
-else
-    echo "pyenv not found, not setting up pyenv"
+fi
+
+if [ -d "$HOME/.rye/env" ] ; then
+    source "$HOME/.rye/env"
 fi
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
