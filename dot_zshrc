@@ -157,11 +157,15 @@ alias ls='eza -alF --color=always --sort=size | grep -v /'
 alias lt='eza -al --sort=modified'
 alias l='ll'
 
-if which code-insiders > /dev/null 2>&1; then
-    export EDITOR='code-insiders --wait'
-    alias ci="code-insiders"
+if which zed > /dev/null 2>&1; then
+    export EDITOR='zed'
+    alias ed="zed"
 else
-    echo "code-insiders not found, not setting as default EDITOR"
+    if which code-insiders > /dev/null 2>&1; then
+        export EDITOR='code-insiders --wait'
+        alias ci="code-insiders"
+    else
+        echo "code-insiders not found, not setting as default EDITOR"
+    fi
 fi
-
 export PYTHON_CONFIGURE_OPTS="--enable-framework"
