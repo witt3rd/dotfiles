@@ -109,7 +109,7 @@ plugins=(
     fast-syntax-highlighting
     pyenv
     # zsh-autocomplete
-    # zsh-autosuggestions
+    zsh-autosuggestions
     # zsh-syntax-highlighting
     ohmyzsh-full-autoupdate
 )
