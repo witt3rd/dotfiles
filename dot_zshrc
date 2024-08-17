@@ -14,8 +14,15 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+if [ -d "$HOME/.cargo" ] ; then
+    source "$HOME/.cargo/env"
+fi
+
 if [ -d "$HOME/.rye" ] ; then
-    export PATH="$HOME/.rye/shims:$PATH"
     source "$HOME/.rye/env"
 fi
 
@@ -25,9 +32,20 @@ if [ -d "$HOME/.nvm" ] ; then
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
 
+if [ -d "$HOME/.local/share/pnpm" ] ; then
+    export PNPM_HOME="$HOME/.local/share/pnpm"
+    case ":$PATH:" in
+        *":$PNPM_HOME:"*) ;;
+        *) export PATH="$PNPM_HOME:$PATH" ;;
+    esac
+fi
+
+
 if [ -f ~/.env.sh ]; then
     source ~/.env.sh
 fi
+
+export ECAA_HOME="$HOME/src/witt3rd/ecaa"
 
 #------------------- ZSH -------------------
 
@@ -150,10 +168,10 @@ eval "$(oh-my-posh init zsh)"
 #------------------- Aliases -------------------
 
 alias ld='eza -lD'
-alias lf='eza -lF --color=always | grep -v /'
+alias lf='eza -lF --color=always'
 alias lh='eza -dl .* --group-directories-first'
 alias ll='eza -al --group-directories-first'
-alias ls='eza -alF --color=always --sort=size | grep -v /'
+alias ls='eza -alF --color=always --sort=size'
 alias lt='eza -al --sort=modified'
 alias l='ll'
 #
@@ -174,4 +192,6 @@ fi
 
 #------------------- Python -------------------
 
-export PYTHON_CONFIGURE_OPTS="--enable-framework"
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    export PYTHON_CONFIGURE_OPTS="--enable-framework"
+fi
