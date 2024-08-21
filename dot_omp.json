@@ -9,6 +9,12 @@
       "alignment": "left",
       "segments": [
         {
+          "type": "os",
+          "style": "plain",
+          "foreground": "#26C6DA",
+          "background": "transparent"
+        },
+        {
           "type": "session",
           "style": "diamond",
           "leading_diamond": "\ue0b6",
@@ -19,12 +25,6 @@
           "Text": "",
           "Duration": 0,
           "NameLength": 0
-        },
-        {
-          "type": "os",
-          "style": "plain",
-          "foreground": "#26C6DA",
-          "background": "transparent"
         },
         {
           "type": "path",
