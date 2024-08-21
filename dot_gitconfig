@@ -6,6 +6,7 @@
 [alias]
 	s = status
 	ac = !git add -A && git commit -m
+	az = !GIT_SSH_COMMAND=\"ssh -i ~/.ssh/dothomps_azure -o IdentitiesOnly=yes\" git
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
