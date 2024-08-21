@@ -11,13 +11,13 @@
         {
           "type": "os",
           "style": "plain",
-          "foreground": "#26C6DA",
-          "background": "transparent"
+          "leading_diamond": "\ue0b6",
+          "background": "p:yellow",
+          "foreground": "p:black"
         },
         {
           "type": "session",
           "style": "diamond",
-          "leading_diamond": "\ue0b6",
           "trailing_diamond": "\ue0b0",
           "template": " {{ if .SSHSession }}\ueba9 {{ end }}{{ .UserName }} ",
           "background": "p:yellow",
