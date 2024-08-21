@@ -12,7 +12,8 @@
           "type": "os",
           "style": "plain",
           "leading_diamond": "\ue0b6",
-          "background": "p:yellow",
+          "trailing_diamond": "\ue0b0",
+          "background": "p:red",
           "foreground": "p:black"
         },
         {
