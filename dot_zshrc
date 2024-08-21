@@ -177,6 +177,8 @@ alias l='ll'
 #
 alias comb='noglob combine_md'
 alias combpy='noglob combine_md src **/*.py'
+#
+alias sshwork='ssh -i ~/.ssh/id_ed25519 dothomps@dothomps-ld1.linkedin.biz'
 
 #------------------- Editors -------------------
 
