@@ -10,7 +10,7 @@
       "segments": [
         {
           "type": "os",
-          "style": "plain",
+          "style": "diamond",
           "leading_diamond": "\ue0b6",
           "trailing_diamond": "\ue0b0",
           "background": "p:red",
@@ -82,7 +82,9 @@
         {
           "type": "status",
           "style": "diamond",
-          "background_templates": ["{{ if gt .Code 0 }}p:red{{ end }}"],
+          "background_templates": [
+            "{{ if gt .Code 0 }}p:red{{ end }}"
+          ],
           "leading_diamond": "<transparent,background>\ue0b0</>",
           "trailing_diamond": "\ue0b4",
           "template": " {{ if gt .Code 0 }}\uf00d{{ else }}\uf00c{{ end }} ",
@@ -169,7 +171,9 @@
   "tooltips": [
     {
       "type": "aws",
-      "tips": ["aws"],
+      "tips": [
+        "aws"
+      ],
       "style": "diamond",
       "leading_diamond": "\ue0b0",
       "trailing_diamond": "\ue0b4",
@@ -185,7 +189,9 @@
     },
     {
       "type": "az",
-      "tips": ["az"],
+      "tips": [
+        "az"
+      ],
       "style": "diamond",
       "leading_diamond": "\ue0b0",
       "trailing_diamond": "\ue0b4",
