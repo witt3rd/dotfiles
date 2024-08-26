@@ -181,6 +181,10 @@ alias sshwork='ssh -i ~/.ssh/id_ed25519 dothomps@dothomps-ld1.linkedin.biz'
 
 #------------------- Editors -------------------
 
+if [ -d "/mnt/c/Users/donal/AppData/Local/Programs/cursor" ] ; then
+    alias cursor='/mnt/c/Users/donal/AppData/Local/Programs/cursor/cursor.exe'
+fi
+
 if which code-insiders > /dev/null 2>&1; then
     export EDITOR='code-insiders --wait'
     alias ci="code-insiders"
