@@ -16,3 +16,6 @@
 	defaultBranch = master
 [core]
 	editor = code-insiders --wait
+	pager = less -R
+[color]
+	ui = auto

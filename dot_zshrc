@@ -195,7 +195,7 @@ if which zed > /dev/null 2>&1; then
     export EDITOR='zed --wait'
 fi
 if which babi > /dev/null 2>&1; then
-    export EDITOR='babi --wait'
+    export EDITOR='babi'
 fi
 
 # Remove any existing 'ed' alias
