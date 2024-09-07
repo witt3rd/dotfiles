@@ -45,7 +45,8 @@ if [ -f ~/.env.sh ]; then
     source ~/.env.sh
 fi
 
-export ECAA_HOME="$HOME/src/witt3rd/ecaa"
+# Don't page if less than a page
+export LESS="-F -X $LESS"
 
 #------------------- ZSH -------------------
 
@@ -192,8 +193,16 @@ fi
 if which zed > /dev/null 2>&1; then
     # override previous editors
     export EDITOR='zed --wait'
-    alias ed="zed"
 fi
+if which babi > /dev/null 2>&1; then
+    export EDITOR='babi --wait'
+fi
+
+# Remove any existing 'ed' alias
+unalias ed 2>/dev/null
+
+# Create a new 'ed' alias that uses $EDITOR
+alias ed='$EDITOR'
 
 #------------------- Python -------------------
 
