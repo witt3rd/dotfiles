@@ -40,6 +40,9 @@ if [ -d "$HOME/.local/share/pnpm" ] ; then
     esac
 fi
 
+if [ -d "$HOME/src" ] ; then
+    export USER_SRC="$HOME/src"
+fi
 
 if [ -f ~/.env.sh ]; then
     source ~/.env.sh
