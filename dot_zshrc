@@ -209,6 +209,20 @@ unalias ed 2>/dev/null
 # Create a new 'ed' alias that uses $EDITOR
 alias ed='$EDITOR'
 
+# Custom scripts
+
+if [ -f "$USER_SRC/witt3rd/ecaa_aux/scripts/combine_md.sh" ]; then
+    alias combine_md="$USER_SRC/witt3rd/ecaa_aux/scripts/combine_md.sh"
+fi
+
+if [ -f "$USER_SRC/witt3rd/ecaa_aux/scripts/mdocx.sh" ]; then
+    alias mdocx="$USER_SRC/witt3rd/ecaa_aux/scripts/mdocx.sh"
+fi
+
+if [ -f "$USER_SRC/witt3rd/convert_to_md/scripts/pdf2md.py" ]; then
+    alias mdocx="$USER_SRC/witt3rd/convert_to_md/scripts/pdf2md.py"
+fi
+
 #------------------- Python -------------------
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
