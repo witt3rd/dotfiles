@@ -220,7 +220,7 @@ if [ -f "$USER_SRC/witt3rd/ecaa_aux/scripts/mdocx.sh" ]; then
 fi
 
 if [ -f "$USER_SRC/witt3rd/convert_to_md/scripts/pdf2md.py" ]; then
-    alias mdocx="$USER_SRC/witt3rd/convert_to_md/scripts/pdf2md.py"
+    alias pdf2md="$USER_SRC/witt3rd/convert_to_md/scripts/pdf2md.py"
 fi
 
 #------------------- Python -------------------
