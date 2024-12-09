@@ -40,6 +40,10 @@ if [ -d "$HOME/.local/share/pnpm" ] ; then
     esac
 fi
 
+if [ -d "$HOME/.zsh/completion" ] ; then
+    fpath=(~/.zsh/completion $fpath)
+fi
+
 if [ -d "$HOME/src" ] ; then
     export USER_SRC="$HOME/src"
 fi
@@ -220,7 +224,7 @@ if [ -f "$USER_SRC/witt3rd/ecaa_aux/scripts/mdocx.sh" ]; then
 fi
 
 if [ -f "$USER_SRC/witt3rd/convert_to_md/scripts/pdf2md.py" ]; then
-    alias pdf2md="$USER_SRC/witt3rd/convert_to_md/scripts/pdf2md.py"
+    alias pdf2md="$USER_SRC/witt3rd/convert_to_md/.venv/bin/python $USER_SRC/witt3rd/convert_to_md/scripts/pdf2md.py"
 fi
 
 #------------------- Python -------------------
