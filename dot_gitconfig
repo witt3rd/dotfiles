@@ -1,8 +1,6 @@
 [user]
 	email = witt3rd@witt3rd.com
 	name = Donald Thompson
-[pull]
-	rebase = true
 [alias]
 	s = status
 	ac = !git add -A && git commit -m
@@ -30,5 +28,12 @@
 [core]
 	editor = code-insiders --wait
 	pager = less -R
+	sshCommand = ssh -i ~/.ssh/id_ed25519
 [color]
 	ui = auto
+[url "https://"]
+	insteadOf = git://
+[http]
+	sslVerify = false
+[pull]
+	rebase = false
