@@ -235,3 +235,5 @@ fi
 if [[ "$OSTYPE" == "darwin"* ]]; then
     export PYTHON_CONFIGURE_OPTS="--enable-framework"
 fi
+
+export UV_PYTHON=3.12
