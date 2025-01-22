@@ -206,8 +206,8 @@ if which zed > /dev/null 2>&1; then
     # override previous editors
     export EDITOR='zed --wait'
 fi
-if which babi > /dev/null 2>&1; then
-    export EDITOR='babi'
+if which emacs > /dev/null 2>&1; then
+    export EDITOR='emacs -nw'
 fi
 
 # Remove any existing 'ed' alias
