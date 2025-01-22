@@ -214,7 +214,7 @@ fi
 unalias ed 2>/dev/null
 
 # Create a new 'ed' alias that uses $EDITOR
-alias ed=$(EDITOR)
+alias ed=$EDITOR
 
 # Custom scripts
 
