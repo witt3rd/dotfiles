@@ -207,7 +207,7 @@ if which zed > /dev/null 2>&1; then
     export EDITOR='zed --wait'
 fi
 if which emacs > /dev/null 2>&1; then
-    export EDITOR='emacs -nw'
+    export EDITOR='emacs'
 fi
 
 # Remove any existing 'ed' alias
