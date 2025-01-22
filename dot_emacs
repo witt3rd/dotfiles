@@ -1,5 +1,5 @@
-(setq custom-file "~/.emacs.custom")
-(load-file "~/.emacs.custom")
+(setq custom-file "~/.emacs.custom.el")
+(load-file "~/.emacs.custom.el")
 
 (tool-bar-mode 0)
 (menu-bar-mode 0)
