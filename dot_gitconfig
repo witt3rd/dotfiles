@@ -19,6 +19,7 @@
 	cpls = listCheckpoints
 	cpd = deleteCheckpoint
 	cpld = loadCheckpoint
+	li = !SSH_AUTH_SOCK='\"' GIT_SSH_COMMAND=\"ssh -i ~/.ssh/dothomps_at_linkedin.com_ssh_key\" git
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
