@@ -5,7 +5,7 @@
 	s = status
 	ac = !git add -A && git commit -m
 	az = !GIT_SSH_COMMAND=\"ssh -i ~/.ssh/dothomps_azure -o IdentitiesOnly=yes\" git
-	wit = !GIT_SSH_COMMAND=\"ssh -i ~/.ssh/witt3rd_ssh_key -o IdentitiesOnly=yes\" git
+	wit = !SSH_AUTH_SOCK='\"' GIT_SSH_COMMAND=\"ssh -i ~/.ssh/witt3rd_ssh_key\" git
 	# Checkpoints allow you to get a commit hash for a WIP.
 	# It's intended for when you'd like to mark progress to return to later, but don't yet want a full commit.
 	# See https://nathanorick.com/git-checkpoints/ for more details.
