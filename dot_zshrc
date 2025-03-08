@@ -202,11 +202,9 @@ fi
 if which code-insiders > /dev/null 2>&1; then
     export EDITOR='code-insiders --wait'
     alias ci="code-insiders"
-fi
 elif which zed > /dev/null 2>&1; then
     # override previous editors
     export EDITOR='zed --wait'
-fi
 elif which emacs > /dev/null 2>&1; then
     export EDITOR='emacs'
 fi
