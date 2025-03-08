@@ -240,7 +240,5 @@ export UV_PYTHON=3.12
 #------------------- FASM -------------------
 
 if [ -f "$USER_SRC/ext/fasm2" ]; then  
-    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-	alias fasm="$USER_SRC/ex/fasm2/fasm"
-    fi
+    export PATH="$USER_SRC/ex/fasm2:$PATH"
 fi
