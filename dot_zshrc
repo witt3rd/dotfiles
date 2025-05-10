@@ -6,6 +6,9 @@ export LESS=-R
 
 if [ -d "/opt/homebrew/bin" ] ; then
     export PATH="/opt/homebrew/bin:$PATH"
+    if [ -d "$HOME/.local/share/uv/python"] ; then
+        export PATH="$HOME/.local/share/uv/python/cpython-3.13.3-macos-aarch64-none/bin:$PATH"
+    fi
 fi
 
 if [ -d "$HOME/.pyenv" ] ; then
@@ -239,6 +242,6 @@ export UV_PYTHON=3.12
 
 #------------------- FASM -------------------
 
-if [ -f "$USER_SRC/ext/fasm2" ]; then  
+if [ -f "$USER_SRC/ext/fasm2" ]; then
     export PATH="$USER_SRC/ex/fasm2:$PATH"
 fi
