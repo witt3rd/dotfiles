@@ -69,6 +69,17 @@ if [ -d "$HOME/src" ] ; then
     export USER_SRC="$HOME/src"
 fi
 
+if [ -d "$HOME/usr/lib/cuda" ] ; then
+    export PATH="/usr/lib/cuda/bin:$PATH"
+    export LD_LIBRARY_PATH="/usr/lib/cuda/lib64:$LD_LIBRARY_PATH"
+    export CUDA_HOME="/usr/lib/cuda"
+fi
+
+# Set LD_LIBRARY_PATH only on Linux and ARM64
+if [ "$(uname -s)" = "Linux" ] && [ "$(uname -m)" = "aarch64" ]; then
+    export LD_LIBRARY_PATH=/usr/lib/aarch64-linux-gnu/atlas:/usr/lib/aarch64-linux-gnu:/usr/lib/aarch64-linux-gnu/lapack:$LD_LIBRARY_PATH
+fi
+
 if [ -f ~/.env.sh ]; then
     source ~/.env.sh
 fi
@@ -171,7 +182,7 @@ if command -v oh-my-posh >/dev/null 2>&1; then
   _omp_config_path=""
 
   # 1. Try to determine theme path using 'oh-my-posh get themes-path' (most reliable)
-  _omp_themes_root_dir=$(oh-my-posh get themes-path 2>/dev/null)
+  _omp_themes_root_dir="$HOME/.cache/oh-my-posh/themes"
   if [ -n "$_omp_themes_root_dir" ] && [ -d "$_omp_themes_root_dir" ] && [ -f "$_omp_themes_root_dir/$_omp_theme_to_load" ]; then
     _omp_config_path="$_omp_themes_root_dir/$_omp_theme_to_load"
     export POSH_THEMES_PATH="$_omp_themes_root_dir" # Set for consistency
