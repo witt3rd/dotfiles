@@ -4,11 +4,25 @@ export LANG=en_US.UTF-8
 export TERM=xterm-256color
 export LESS=-R
 
+# Add Homebrew path if it exists
 if [ -d "/opt/homebrew/bin" ] ; then
     export PATH="/opt/homebrew/bin:$PATH"
-    if [ -d "$HOME/.local/share/uv/python"] ; then
-        export PATH="$HOME/.local/share/uv/python/cpython-3.13.3-macos-aarch64-none/bin:$PATH"
-    fi
+fi
+
+# Add all uv-managed Python versions to PATH, prioritizing them.
+# This ensures they take precedence over Homebrew and system Python.
+UV_PYTHON_INSTALL_DIR="$HOME/.local/share/uv/python"
+if [ -d "$UV_PYTHON_INSTALL_DIR" ]; then
+    # Loop through each directory in the uv python install directory
+    # These directories typically represent different Python versions/environments
+    for uv_python_env_path in "$UV_PYTHON_INSTALL_DIR"/*; do
+        # Check if a 'bin' subdirectory exists within this environment path
+        if [ -d "$uv_python_env_path/bin" ]; then
+            # Prepend the 'bin' directory to the PATH export
+            PATH="$uv_python_env_path/bin:$PATH"
+        fi
+    done
+    export UV_PYTHON=3.12
 fi
 
 if [ -d "$HOME/.pyenv" ] ; then
@@ -148,7 +162,7 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
-eval "$(oh-my-posh init zsh --config ~/.omp.json)"
+eval "$(oh-my-posh init zsh --config ~/sonicboom_dark.omp.json)"
 
 # User configuration
 
@@ -237,8 +251,6 @@ fi
 if [[ "$OSTYPE" == "darwin"* ]]; then
     export PYTHON_CONFIGURE_OPTS="--enable-framework"
 fi
-
-export UV_PYTHON=3.12
 
 #------------------- FASM -------------------
 
