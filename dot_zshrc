@@ -162,7 +162,47 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
-eval "$(oh-my-posh init zsh --config ~/sonicboom_dark.omp.json)"
+
+# --- Oh My Posh Configuration ---
+# Initializes Oh My Posh if available, attempting to load a specific theme.
+# Tries to be cross-platform in detecting the themes path.
+if command -v oh-my-posh >/dev/null 2>&1; then
+  _omp_theme_to_load="sonicboom_dark.omp.json"
+  _omp_config_path=""
+
+  # 1. Try to determine theme path using 'oh-my-posh get themes-path' (most reliable)
+  _omp_themes_root_dir=$(oh-my-posh get themes-path 2>/dev/null)
+  if [ -n "$_omp_themes_root_dir" ] && [ -d "$_omp_themes_root_dir" ] && [ -f "$_omp_themes_root_dir/$_omp_theme_to_load" ]; then
+    _omp_config_path="$_omp_themes_root_dir/$_omp_theme_to_load"
+    export POSH_THEMES_PATH="$_omp_themes_root_dir" # Set for consistency
+  fi
+
+  # 2. If not found via 'get themes-path', and on macOS with Homebrew, try brew prefix
+  if [ -z "$_omp_config_path" ] && [[ "$OSTYPE" == "darwin"* ]] && command -v brew >/dev/null 2>&1; then
+    _omp_brew_prefix=$(brew --prefix oh-my-posh 2>/dev/null)
+    if [ -n "$_omp_brew_prefix" ] && [ -d "$_omp_brew_prefix/themes" ] && [ -f "$_omp_brew_prefix/themes/$_omp_theme_to_load" ]; then
+      _omp_config_path="$_omp_brew_prefix/themes/$_omp_theme_to_load"
+      export POSH_THEMES_PATH="$_omp_brew_prefix/themes" # Set for consistency
+    fi
+  fi
+
+  # 3. Initialize oh-my-posh
+  if [ -n "$_omp_config_path" ]; then
+    # If using Oh My Posh, you might want to disable Oh My Zsh's theme
+    # ZSH_THEME="" # Uncomment if ZSH_THEME is set elsewhere and conflicts
+    eval "$(oh-my-posh init zsh --config "$_omp_config_path")"
+  else
+    # Fallback: try to load by name. oh-my-posh might find it if POSH_THEMES_PATH
+    # is already set (e.g., by an installer) or the theme is in a default location.
+    # If oh-my-posh cannot find the theme by name, it will typically print an error.
+    # echo "Oh My Posh: Specific path for '$_omp_theme_to_load' not found. Attempting to load by name."
+    eval "$(oh-my-posh init zsh --config "$_omp_theme_to_load")"
+  fi
+else
+  # Oh My Posh command not found, do nothing.
+  :
+fi
+# --- End Oh My Posh Configuration ---
 
 # User configuration
 
